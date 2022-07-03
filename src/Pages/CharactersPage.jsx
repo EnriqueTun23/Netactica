@@ -7,6 +7,7 @@ import { loadData, filter } from '../store/characters'
 import { CardCharacters } from '../Components/CardCharacters';
 import { PaginationCharacters } from "../Components/PaginationCharacters";
 import { Row, Col, Typography, Divider, Form, Select, Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -14,23 +15,25 @@ const { Option } = Select;
 export const CharactersPage = () => {
 
   const [form] = Form.useForm();
-  const { characters, films, backupCharacter } = useSelector(state => state.character);
+  const { characters, films, backupCharacter, loadingCharacter } = useSelector(state => state.character);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
   const [postsPerPage] = useState(10);
 
   useEffect(() => {
     if (characters.length === 0) {
         dispatch(loadData('https://swapi.dev/api/people'))
-    } else {
-      setIsLoading(false);
     }
   }, [characters])
-  
-  console.log('data', characters)
+
+  useEffect(() => {
+    if (films.length === 0) {
+      navigate('/')
+    }
+  })
   
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -73,7 +76,7 @@ export const CharactersPage = () => {
     )
   }
 
-  if (isLoading) {
+  if (loadingCharacter) {
     return (
       <div className="App">
         <h1 className="title">Cargando...</h1>
@@ -157,7 +160,10 @@ export const CharactersPage = () => {
       <Row>
         <Col span={24}>
           <Row gutter={[16, 48]}>
-            <CardCharacters characters={currentPosts} />
+            {currentPosts.length > 0 ? (
+              <CardCharacters characters={currentPosts} />
+
+            ) :  ( null ) }
           </Row>
         </Col>
       </Row>

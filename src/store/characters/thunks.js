@@ -46,17 +46,38 @@ export const filter = (filters) => {
     return (dispatch, getState) => {
         const { backupCharacter } = getState().character;
 
-        const eye_color = filters.eye_color ? backupCharacter.filter(item => item.eye_color.toUpperCase() === filters.eye_color.toUpperCase() ) : []
-        const films = filters.films ? [] : [];
-        const gender = filters.gender ? backupCharacter.filter(item => item.gender.toUpperCase() === filters.gender.toUpperCase()) : [];
-        
-        const res_concat = eye_color.concat(films, gender)
-        
-        const parse_concat = new Set(res_concat)
+        let characters = backupCharacter
 
-        let newData = [...parse_concat];
+        if (filters.eye_color) {
+            characters = characters.filter(item => item.eye_color.toUpperCase() === filters.eye_color.toUpperCase())
+        }
 
-        dispatch(filterCharacters(newData))
+        if (filters.gender) {
+            characters = characters.filter(item => item.gender.toUpperCase() === filters.gender.toUpperCase())
+        }
+
+        if (filters.films) {
+            characters = characters.filter((value, index) => {
+               const search = value.films.find((data) => data.toUpperCase() === filters.films.toUpperCase())
+
+               return search !== undefined;
+            //    if (!search) {
+            //        return value
+            //    }
+            })
+
+            // console.log(maps)
+        }
+
+        // const films = filters.films ? [] : [];
+        
+        // const res_concat = eye_color.concat(films, gender)
+        
+        // const parse_concat = new Set(res_concat)
+
+        // let newData = [...parse_concat];
+
+        dispatch(filterCharacters(characters))
 
     }
 }

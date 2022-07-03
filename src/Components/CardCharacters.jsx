@@ -13,9 +13,7 @@ export const CardCharacters = ({ characters }) => {
 
     const dataTitle = (item) => {
         const res = films.find(element => element.url === item)
-        // console.log(films);
         return res.title
-            // return item
     } 
 
     const handleUlrDetail = (url) => {
@@ -48,7 +46,6 @@ export const CardCharacters = ({ characters }) => {
                         bordered
                         dataSource={item.films}
                         renderItem={item => <List.Item>{dataTitle(item)}</List.Item>}
-                        // renderItem={item => <List.Item>{item}</List.Item>}
                     />
                 </Card>
               </Col>

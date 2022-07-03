@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react'
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Card, Col, Divider, List } from 'antd';
+import { addURLPeople } from '../store/characters';
 
 export const CardCharactersView = ({url}) => {
   const { films } = useSelector(state => state.character);
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   useEffect(() => {
     fetch(url)
@@ -22,7 +28,12 @@ export const CardCharactersView = ({url}) => {
   const dataTitle = (item) => {
     const res = films.find(element => element.url === item)
     return res.title
-  } 
+  }
+
+  const handleUlrDetail = (url) => {
+    dispatch(addURLPeople(url))
+    navigate('/characters/detail')
+  }
 
   if (isLoading) {
     return (
@@ -32,11 +43,11 @@ export const CardCharactersView = ({url}) => {
     );
   }
   return (
-    <Col xs={24} md={12} xl={8}>
+    <Col className='animate__animated animate__zoomIn' xs={24} md={12} xl={8}>
       <Card
         hoverable
         title={data.name}
-        extra={<Button type="link">Ver mas</Button>}
+        extra={<Button onClick={() => handleUlrDetail(data.url)} type="link">Ver mas</Button>}
       >
         <p><b>Color de ojos:</b> {data.hair_color}</p>
         <p><b>Genero:</b> {data.gender}</p>

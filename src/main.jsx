@@ -10,6 +10,7 @@ import { App } from './App'
 import { store } from './store'
 
 import 'antd/dist/antd.css'
+import 'animate.css';
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

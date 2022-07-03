@@ -32,7 +32,7 @@ export const CardCharacters = ({ characters }) => {
   return (
       <>
           {characters.map((item, index) => (
-              <Col xs={24} md={12} xl={8} key={index}>
+              <Col className="animate__animated animate__jackInTheBox" xs={24} md={12} xl={8} key={index}>
                 <Card
                     hoverable
                     title={item.name}
@@ -49,6 +49,7 @@ export const CardCharacters = ({ characters }) => {
                     />
                 </Card>
               </Col>
+              
           ))
         }
       </>

@@ -61,21 +61,8 @@ export const filter = (filters) => {
                const search = value.films.find((data) => data.toUpperCase() === filters.films.toUpperCase())
 
                return search !== undefined;
-            //    if (!search) {
-            //        return value
-            //    }
             })
-
-            // console.log(maps)
         }
-
-        // const films = filters.films ? [] : [];
-        
-        // const res_concat = eye_color.concat(films, gender)
-        
-        // const parse_concat = new Set(res_concat)
-
-        // let newData = [...parse_concat];
 
         dispatch(filterCharacters(characters))
 

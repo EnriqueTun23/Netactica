@@ -46,13 +46,13 @@ export const CharactersDetailPage = () => {
 
   return (
     <>
-      <Row justify='center'>
+      <Row className='animate__animated animate__zoomInDown' justify='center'>
         <Col>
           <Title type='warning' level={2}>{character.name}</Title>
         </Col>
       </Row>
       <Row>
-        <Col span={12}>
+        <Col className='animate__animated animate__zoomIn' span={12}>
           <p>
             <Text strong>Fecha de cumpleaños: </Text>
             <Text italic>{character.birth_year}</Text>
